@@ -1,0 +1,8 @@
+.auth__button_type_signin {
+  margin: 200px 0 0 0;
+}
+@media screen and (max-width: 500px) {
+  .auth__button_type_signin {
+    margin: 290px 0 0 0;
+  }
+}
