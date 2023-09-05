@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+        <h2 className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
         <div className="footer__flex-wrapper">
           <span className="footer__caption">© 2023</span>
           <nav className="footer__links">

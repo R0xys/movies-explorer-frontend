@@ -44,21 +44,19 @@
   opacity: 0.8;
 }
 .card__button_type_active {
-  display: block;
   background: #EE3465 url(../../images/check.svg) center no-repeat;
   font-size: 0;
-  width: 100px;
-  height: 29px;
-  border-radius: 30px;
-  margin: 0 auto;
+  cursor: default;
+  transition: none;
+}
+.card__button_type_active:hover {
+  opacity: 1;
 }
 .card__button_type_remove {
-  display: block;
   background: #313131 url(../../images/cross.svg) center no-repeat;
-  width: 100px;
-  height: 29px;
-  border-radius: 30px;
-  margin: 0 auto;
+}
+.card__button_type_remove:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 600px) {

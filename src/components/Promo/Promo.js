@@ -1,4 +1,3 @@
-import promoImage from '../../images/promo-image.png';
 import NavTab from '../NavTab/NavTab';
 import './Promo.css';
 
@@ -12,7 +11,7 @@ function Promo() {
             <p className="promo__caption">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
             <NavTab />
           </div>
-          <img src={promoImage} alt='Планета из букв' className='promo__image'/>
+          <div className='promo__image'></div>
         </div>
       </div>
     </section>

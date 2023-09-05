@@ -63,16 +63,8 @@
   position: relative;
 }
 .burger-menu__container_open {
-  align-items: center;
-  flex: 1 0 auto;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   right: 0;
-  max-width: 520px;
-  background: #202020;
   animation: openMenu 0.2s;
-  position: relative;
 }
 .burger-menu__links {
   display: flex;
@@ -86,23 +78,26 @@
   font-weight: 500;
   padding: 0 0 4px 0;
   margin: 25px 0 0 0;
+  transition: opacity 0.3s;
 }
-.burger-menu__link:nth-of-type(1) {
-  margin: 112px 0 0 0;
+.burger-menu__link:hover {
+  opacity: 0.7;
 }
 .burger-menu__link_active {
   border-bottom: 2px solid #FFF;
 }
 .burger-menu__link_type_account {
   font-size: 14px;
-  font-weight: 500;
   line-height: 16px;
-  margin: 30px 0 92px 0;
+  margin: 30px 0 80px 0;
   position: relative;
   padding: 0 43px 15px 0;
   transition: opacity 0.2s;
   width: 57px;
   display: inline-block;
+}
+.burger-menu__link_type_account:hover {
+  opacity: 0.7;
 }
 .burger-menu__link_type_account::after {
   content: '';
@@ -118,15 +113,7 @@
   opacity: 0.7;
 }
 .burger-menu_open {
-  position: fixed;
-  background: hsla(0, 0%, 0%, 0.3);
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 2;
   display: flex;
-  justify-content: end;
   animation: openWindow 0.2s;
 }
 .burger-menu__wrapper {
@@ -134,6 +121,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 87px 0 0 0;
 }
 .burger-menu__close-button {
   width: 22px;
@@ -141,6 +129,11 @@
   background: url(../../images/burger-menu-cross.svg) center no-repeat;
   align-self: flex-end;
   margin: 27px 27px 0 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.burger-menu__close-button:hover {
+  opacity: 0.7;
 }
 @media screen and (max-width: 600px){
   .burger-menu__wrapper {
@@ -150,16 +143,14 @@
 @media screen and (max-width: 500px) {
   .burger-menu__wrapper {
     max-width: 100%;
-  }
-  .burger-menu__link:nth-of-type(1) {
-    margin: 105px 0 0 0;
-  }
-  .burger-menu__link_type_account {
-    margin: 30px 0 48px 0;
-    font-size: 14px;
+    margin: 82px 0 0 0;
   }
   .burger-menu__link {
     margin: 22px 0 0 0;
+  }
+  .burger-menu__link_type_account {
+    margin: 30px 0 38px 0;
+    font-size: 14px;
   }
   .burger-menu__close-button {
     margin: 20px 20px 0 0;

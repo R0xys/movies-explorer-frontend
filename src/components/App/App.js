@@ -13,7 +13,7 @@ import Login from '../Login/Login';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false)
 
   const handleOpenBurgerMenu = () => {
@@ -24,8 +24,12 @@ function App() {
     setIsBurgerMenuOpen(false);
   }
 
-  const logOut = () => {
+  const handleLogOut = () => {
     setIsLoggedIn(false);
+  }
+
+  const handleLogIn = () => {
+    setIsLoggedIn(true);
   }
 
   return (
@@ -55,14 +59,14 @@ function App() {
         <Route path='/profile' element={
           <>
             <Header mainPage={false} handleOpenBurgerMenu={handleOpenBurgerMenu} isLoggedIn={isLoggedIn}/>
-            <Profile logOut={logOut} />
+            <Profile handleLogOut={handleLogOut} />
           </>
         }/>     
         <Route path='/signup' element={
           <Register />
         }/>
         <Route path='/signin' element={
-          <Login />
+          <Login handleLogIn={handleLogIn} />
         }/>      
         <Route path='*' element={
           <NotFound />

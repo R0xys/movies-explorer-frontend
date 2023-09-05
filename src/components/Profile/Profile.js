@@ -1,10 +1,12 @@
 import './Profile.css'
 import React from "react";
 import { useFormAndValidation } from '../../hooks/useFormAndValidation'
+import { useNavigate } from 'react-router-dom';
 
 function Profile(props) {
   const [isEditing, setIsEditing] = React.useState(false);
   const {values, setValues, handleChange} = useFormAndValidation();
+  const navigate = useNavigate();
   const handleEditButtonClick = () => {
     setIsEditing(true);
   }
@@ -15,7 +17,8 @@ function Profile(props) {
   }
 
   const handleExitButtonClick = () => {
-    props.logOut();
+    props.handleLogOut();
+    navigate('/')
   }
 
   React.useEffect(() => {
@@ -23,16 +26,17 @@ function Profile(props) {
   }, [])
 
   return (
-    <section className="profile">
+    <main className="profile">
+      <div className='profile__wrapper'>
         <h1 className='profile__title'>Привет, Виталий!</h1>
         <form onSubmit={handleSubmit} noValidate className="profile__form" action="#" method="post" name='edit-form' id='edit-form'>
           <div className="profile__field">
             <span className="profile__field-property">Имя</span>
-            <input type='text' onChange={handleChange} className="profile__field-value" disabled={!isEditing} value={values['edit-name'] || ''} name='edit-name' />
+            <input required autoComplete="off" placeholder='Ваше имя' type='text' onChange={handleChange} className="profile__field-value" disabled={!isEditing} value={values['edit-name'] || ''} name='edit-name' />
           </div>
           <div className="profile__field">
             <span className="profile__field-property">E-mail</span>
-            <input type='email' onChange={handleChange} className="profile__field-value" disabled={!isEditing} value={values['edit-email'] || ''} name='edit-email' />
+            <input required autoComplete="off" placeholder='Ваш e-mail' type='email' onChange={handleChange} className="profile__field-value" disabled={!isEditing} value={values['edit-email'] || ''} name='edit-email' />
           </div>
           <div className="profile__flex-wrapper">
             {!isEditing && 
@@ -44,7 +48,8 @@ function Profile(props) {
             {isEditing && <button type="submit" className="profile__save-button zero-button">Сохранить</button>}
           </div>
         </form>
-    </section>
+      </div>
+    </main>
   )
 };
 

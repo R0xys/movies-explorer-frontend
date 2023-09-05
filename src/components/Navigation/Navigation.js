@@ -22,7 +22,7 @@ function Navigation(props) {
             <nav className='header__links'>
               <NavLink className={({ isActive }) => isActive ? 'header__link_active header__link zero-link' : 'header__link zero-link'} to='/movies'>Фильмы</NavLink>
               <NavLink className={({ isActive }) => isActive ? 'header__link_active header__link zero-link' : 'header__link zero-link'} to='/saved-movies'>Сохранённые фильмы</NavLink>
-              <NavLink className={({ isActive }) => isActive ? `${props.mainPage ? 'header__link_type_account-on-main' : ''} header__link_active zero-link header__link_type_account` : `${props.mainPage ? 'header__link_type_account-on-main' : ''} zero-link header__link_type_account`} to='/profile'>Аккаунт</NavLink>
+              <NavLink className={({ isActive }) => isActive ? `${props.mainPage ? 'header__link_type_account-on-main' : ''} header__link_active header__link zero-link header__link_type_account` : `${props.mainPage ? 'header__link_type_account-on-main' : ''} zero-link header__link header__link_type_account`} to='/profile'>Аккаунт</NavLink>
             </nav>
             <button className="header__burger-menu-button zero-button" onClick={handleClick}></button>
           </>

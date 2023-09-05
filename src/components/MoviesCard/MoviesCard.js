@@ -15,8 +15,8 @@ function MoviesCard(props) {
         <span className="card__time">0ч 42м</span>
       </div>
       <img src={props.image} alt='Картинка' className="card__image" />
-      {!props.buttonTypeRemove && <button type='button' onClick={handleClick} className={`${isSaved ? 'card__button_type_active' : 'card__button'} zero-button`}>Сохранить</button>}
-      {props.buttonTypeRemove && <button type='button' className='card__button_type_remove zero-button'></button>}
+      {!props.buttonTypeRemove && <button type='button' onClick={handleClick} className={`${isSaved ? 'card__button_type_active' : ''} card__button zero-button`}>Сохранить</button>}
+      {props.buttonTypeRemove && <button type='button' className='card__button_type_remove card__button zero-button'></button>}
     </article>
   )
 };

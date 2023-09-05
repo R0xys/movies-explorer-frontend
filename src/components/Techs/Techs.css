@@ -38,6 +38,7 @@
   padding: 21px 0;
   border-radius: 10px;
   background: #303030;
+  margin: 0;
 }
 @media screen and (max-width: 900px) {
   .techs {
@@ -57,10 +58,13 @@
   .techs__card {
     width: 84px;
   }
+  .techs__content-title {
+    margin: 0 0 22px 0;
+  }
 }
 @media screen and (max-width: 500px) {
   .techs {
-    padding: 70px 4px;
+    padding: 65px 8px 70px 8px;
   }
   .techs__content-title {
     font-size: 30px;

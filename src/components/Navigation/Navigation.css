@@ -4,8 +4,8 @@
   font-weight: 400;
   line-height: 18px;
   margin: 0 20px 0 0;
-  transition: opacity 0.2s;
   display: inline-block;
+  transition: opacity 0.2s;
 }
 .header__link:nth-of-type(1) {
   width: 58px;
@@ -47,15 +47,11 @@
   background: #0F4157 url(../../images/icon-acc.svg) center no-repeat;
 }
 .header__link_type_account {
-  font-size: 14px;
-  font-weight: 400;
   line-height: 16px;
   margin: 0 0 0 30px;
   position: relative;
   padding: 0 43px 0 0;
-  transition: opacity 0.2s;
   width: 57px;
-  display: inline-block;
 }
 .header__link_type_account:hover {
   opacity: 0.7;
@@ -69,6 +65,11 @@
   background: url(../../images/burger-menu.svg) center no-repeat;
   display: none;
   margin: 0 4px 4px 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.header__burger-menu-button:hover {
+  opacity: 0.7;
 }
 @media screen and (max-width:900px) {
   .header__links {

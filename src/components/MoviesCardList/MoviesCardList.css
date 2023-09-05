@@ -1,5 +1,5 @@
 .card-list {
-  margin: 80px auto;
+  margin: 80px auto 0 auto;
 }
 .card-list__button {
   width: 100%;
@@ -7,12 +7,18 @@
   border-radius: 6px;
   background: #2F2F2F;
   height: 36px;
-  margin: 60px 0 0 0;
   color: #FFF;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.3s;
+}
+.card-list__button-wrapper {
+  padding: 50px 0 80px 0;
+}
+.card-list__button-wrapper_clear {
+  height: 140px;
+  padding: 0;
 }
 .card-list__button:hover {
   opacity: 0.8;
@@ -21,14 +27,15 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+  align-content: start;
+  min-height: 399px;
+  margin: 0 0 10px 0;
 }
 @media screen and (max-width: 900px) {
   .card-list__grid-wrapper {
     grid-template-columns: repeat(2, 1fr);
     gap: 35px 24px;
-  }
-  .card-list__button {
-    margin: 80px 0 0 0;
+    margin: 0 0 30px 0;
   }
 }
 @media screen and (max-width: 600px) {
@@ -38,6 +45,6 @@
     justify-items: center;
   }
   .card-list {
-    margin: 50px 0 80px 0;
+    margin: 50px 0 0 0;
   }
 }

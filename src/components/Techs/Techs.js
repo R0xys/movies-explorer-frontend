@@ -8,13 +8,13 @@ function Techs() {
         <h3 className='techs__content-title'>7 технологий</h3>
         <p className='techs__text'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
         <div className='techs__container'>
-          <span className='techs__card'>HTML</span>
-          <span className='techs__card'>CSS</span>
-          <span className='techs__card'>JS</span>
-          <span className='techs__card'>React</span>
-          <span className='techs__card'>Git</span>
-          <span className='techs__card'>Express.js</span>
-          <span className='techs__card'>mongoDB</span>
+          <p className='techs__card'>HTML</p>
+          <p className='techs__card'>CSS</p>
+          <p className='techs__card'>JS</p>
+          <p className='techs__card'>React</p>
+          <p className='techs__card'>Git</p>
+          <p className='techs__card'>Express.js</p>
+          <p className='techs__card'>mongoDB</p>
         </div>
       </div>
     </section>
