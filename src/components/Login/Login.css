@@ -1,3 +1,8 @@
-.auth__button_type_signin {
-  margin: 200px 0 0 0;
+.auth__server-error_type_login {
+  margin: 200px 0 10px 0;
+}
+@media screen and (max-width: 500px) {
+  .auth__server-error_type_login {
+    margin: 5px 0;
+  }
 }

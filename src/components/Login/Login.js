@@ -2,16 +2,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import React from 'react';
+import { mainApi } from '../../utils/MainApi';
 
 function Login(props) {
-  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation();
+  const [serverError, setServerError] = React.useState('');
+  const {values, handleChange, errors, isValid, setIsValid, resetForm} = useFormAndValidation();
   const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    resetForm();
-    navigate('/movies');
-    props.handleLogIn();
+    mainApi.signin({
+      email: values['input-login-email'],
+      password: values['input-login-password'],
+    })
+      .then((res) => {
+        resetForm();
+        props.handleLogIn();
+        navigate('/movies');
+      })
+      .catch((err) => {
+        setIsValid(false);
+        setServerError(err);
+        console.log(err);
+      })
   }
 
   return (
@@ -33,7 +47,8 @@ function Login(props) {
           </div>
         </div>
         <div className="auth__container">
-          <button disabled={!isValid} type="submit" className="auth__button auth__button_type_signin zero-button">Войти</button>
+          <p className="auth__server-error auth__server-error_type_login">{serverError}</p>
+          <button disabled={!isValid} type="submit" className="auth__button zero-button">Войти</button>
           <div className="auth__flex-wrapper">
             <p className="auth__caption">Ещё не зарегистрированы?</p>
             <Link to='/signup' className="auth__link zero-link">Регистрация</Link>

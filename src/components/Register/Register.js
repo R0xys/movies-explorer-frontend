@@ -2,15 +2,31 @@ import { Link, useNavigate } from "react-router-dom";
 import './Register.css';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { mainApi } from "../../utils/MainApi";
+import React from "react";
 
 function Register(props) {
-  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation();
+  const [serverError, setServerError] = React.useState('');
+  const {values, handleChange, errors, isValid, setIsValid, resetForm} = useFormAndValidation();
   const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    resetForm();
-    navigate('/signin')
+    mainApi.signup({
+      name: values['input-reg-name'],
+      email: values['input-reg-email'],
+      password: values['input-reg-password'],
+    })
+      .then((res) => {
+        resetForm();
+        props.handleLogIn()
+        navigate('/movies');
+      })
+      .catch((err) => {
+        setIsValid(false);
+        setServerError(err);
+        console.log(err);
+      })
   }
 
   return (
@@ -37,6 +53,7 @@ function Register(props) {
             </div>
           </div>
           <div className="auth__container">
+            <p className="auth__server-error">{serverError}</p>
             <button type="submit" disabled={!isValid} className="auth__button zero-button">Зарегистрироваться</button>
             <div className="auth__flex-wrapper">
               <p className="auth__caption">Уже зарегистрированы?</p>

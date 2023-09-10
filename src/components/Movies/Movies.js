@@ -1,26 +1,47 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
-import pic1 from '../../images/pic__COLOR_pic-1.jpg';
-import pic2 from '../../images/pic__COLOR_pic-2.jpg';
-import pic3 from '../../images/pic__COLOR_pic-3.jpg';
-import pic4 from '../../images/pic__COLOR_pic-4.jpg';
-import pic5 from '../../images/pic__COLOR_pic-5.jpg';
-import pic6 from '../../images/pic__COLOR_pic-6.jpg';
-import pic7 from '../../images/pic__COLOR_pic-7.jpg';
-import pic8 from '../../images/pic__COLOR_pic-8.jpg';
-import pic9 from '../../images/pic__COLOR_pic-9.jpg';
-import pic10 from '../../images/pic__COLOR_pic-10.jpg';
-import pic11 from '../../images/pic__COLOR_pic-11.jpg';
-import pic12 from '../../images/pic__COLOR_pic-12.jpeg';
 import React from "react";
+import { moviesApi } from '../../utils/MoviesApi';
+import './Movies.css';
 
 function Movies() {
-  const [moviesList, setMoviesist] = React.useState([pic12, pic1, pic9, pic2, pic4, pic5, pic6, pic7, pic8, pic3, pic10, pic11])
+  const [moviesList, setMoviesist] = React.useState(JSON.parse(localStorage.getItem('movies')) || []);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isNotFound, setIsNotFound] = React.useState(false);
+  const [isMoviesLoaded, setIsMoviesLoaded] = React.useState(JSON.parse(localStorage.getItem('movies')) ? true : false);
+  const [isSwitcherChecked, setIsSwitcherChecked] = React.useState(JSON.parse(localStorage.getItem('switcherChecked')) || false);
+
+  const handleSubmitSearchForm = (evt) => {
+    evt.preventDefault();
+    setIsLoading(true);
+    moviesApi.getData()
+      .then((res) => {
+        setMoviesist(res);
+        setIsMoviesLoaded(true);
+        if (res.length === 0) {
+          setIsMoviesLoaded(false)
+          setIsNotFound(true);
+        };
+        localStorage.setItem('movies', JSON.stringify(res));
+        localStorage.setItem('switcherChecked', isSwitcherChecked);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false))
+
+  }
+
+  const handleToggleSwitcher = () => {
+    setIsSwitcherChecked(!isSwitcherChecked);
+  }
   return (
     <main className="main">
-      <SearchForm />
-      <MoviesCardList array={moviesList} buttonTypeRemove={false} />
+      <SearchForm handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
+      {isMoviesLoaded && <MoviesCardList array={moviesList} buttonTypeRemove={false} />}
+      {isNotFound && <p className="no-movies">Ничего не найдено</p>}
+      {isLoading && <Preloader />}
     </main>
   )
 };

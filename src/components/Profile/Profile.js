@@ -2,28 +2,47 @@ import './Profile.css'
 import React from "react";
 import { useFormAndValidation } from '../../hooks/useFormAndValidation'
 import { useNavigate } from 'react-router-dom';
+import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile(props) {
   const [isEditing, setIsEditing] = React.useState(false);
-  const {values, setValues, handleChange} = useFormAndValidation();
+  const {values, setValues, handleChange, isValid} = useFormAndValidation();
   const navigate = useNavigate();
+  const currentUser = React.useContext(CurrentUserContext);
   const handleEditButtonClick = () => {
     setIsEditing(true);
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    mainApi.editProfile({
+      email: values['edit-email'],
+      name: values['edit-name'],
+    })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     setIsEditing(false);
   }
 
   const handleExitButtonClick = () => {
-    props.handleLogOut();
-    navigate('/')
+    mainApi.signout()
+      .then((res) => {
+        props.handleLogOut();
+        navigate('/')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   React.useEffect(() => {
-    setValues({['edit-name']: 'Виталий', ['edit-email']: 'pochta@yandex.ru'})
-  }, [])
+    setValues({['edit-name']: currentUser.name, ['edit-email']: currentUser.email})
+  }, [currentUser])
 
   return (
     <main className="profile">
@@ -45,7 +64,7 @@ function Profile(props) {
               <button type="button" onClick={handleExitButtonClick} className="profile__exit-link zero-button">Выйти из аккаунта</button>
             </>
             }
-            {isEditing && <button type="submit" className="profile__save-button zero-button">Сохранить</button>}
+            {isEditing && <button type="submit" disabled={!isValid} className="profile__save-button zero-button">Сохранить</button>}
           </div>
         </form>
       </div>
