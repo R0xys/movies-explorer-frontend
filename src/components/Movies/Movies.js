@@ -16,11 +16,12 @@ function Movies() {
   const [isMoviesLoaded, setIsMoviesLoaded] = React.useState(JSON.parse(localStorage.getItem('movies')) ? true : false);
   const [isSwitcherChecked, setIsSwitcherChecked] = React.useState(JSON.parse(localStorage.getItem('switcherChecked')) || false);
   const [inputValue, setInputValue] = React.useState(localStorage.getItem('inputSearchValue') || '');
+  const [isFirstRender, setIsFirstRender] = React.useState(true);
 
   const handleChangeSearchInput = (evt) => {
     setInputValue(evt.target.value);
   }
-  
+
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault();
     setIsLoading(true);
@@ -28,9 +29,11 @@ function Movies() {
     moviesApi.getData()
       .then((res) => {
         setDefaultMoviesList(res);
-        filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded);
+        setIsFirstRender(false);
+        filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded, isFirstRender);
         localStorage.setItem('switcherChecked', isSwitcherChecked);
         localStorage.setItem('movies', JSON.stringify(res));
+        localStorage.setItem('inputSearchValue', inputValue);
       })
       .catch((err) => {
         console.log(err);
@@ -40,12 +43,13 @@ function Movies() {
 
   const handleToggleSwitcher = () => {
     setIsSwitcherChecked(!isSwitcherChecked);
+    localStorage.setItem('inputSearchValue', inputValue);
   }
 
   React.useEffect(() => {
     localStorage.setItem('switcherChecked', isSwitcherChecked);
     localStorage.setItem('inputSearchValue', inputValue);
-    filterCards(isSwitcherChecked, inputValue, setMoviesList, defaultMoviesList, setIsNotFound, setIsMoviesLoaded);
+    filterCards(isSwitcherChecked, inputValue, setMoviesList, defaultMoviesList, setIsNotFound, setIsMoviesLoaded, isFirstRender);
   }, [isSwitcherChecked])
 
   React.useEffect(() => {

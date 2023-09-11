@@ -14,6 +14,7 @@ function SavedMovies() {
   const [isMoviesLoaded, setIsMoviesLoaded] = React.useState(false);
   const [isNotFound, setIsNotFound] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
+  const [isFirstRender, setIsFirstRender] = React.useState(true);
   
   const handleChangeSearchInput = (evt) => {
     setInputValue(evt.target.value);
@@ -26,7 +27,7 @@ function SavedMovies() {
     mainApi.getMovies()
       .then((res) => {
         setDefaultMoviesList(res)
-        filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded);
+        filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded, isFirstRender);
       })
       .catch((err) => {
         console.log(err);
@@ -45,14 +46,15 @@ function SavedMovies() {
   }
 
   React.useEffect(() => {
-    filterCards(isSwitcherChecked, inputValue, setMoviesList, defaultMoviesList, setIsNotFound, setIsMoviesLoaded);
+    filterCards(isSwitcherChecked, inputValue, setMoviesList, defaultMoviesList, setIsNotFound, setIsMoviesLoaded, isFirstRender);
   }, [isSwitcherChecked])
 
   React.useEffect(() => {
     mainApi.getMovies()
     .then((res) => {
       setDefaultMoviesList(res);
-      filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded);
+      setIsFirstRender(false);
+      filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded, isFirstRender);
     })
     .catch((err) => {
       console.log(err);
