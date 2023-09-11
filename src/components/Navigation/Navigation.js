@@ -6,6 +6,7 @@ function Navigation(props) {
   const handleClick = () => {
     props.handleOpenBurgerMenu();
   }
+  
   return (
     <>
       {!props.isLoggedIn && 

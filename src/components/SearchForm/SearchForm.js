@@ -3,7 +3,6 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
 function SearchForm(props) {
-
   const handeSubmit = (evt) => {
     props.handleSubmitSearchForm(evt);
     localStorage.setItem('inputSearchValue', props.inputValue);

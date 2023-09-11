@@ -20,6 +20,7 @@ function Movies() {
   const handleChangeSearchInput = (evt) => {
     setInputValue(evt.target.value);
   }
+  
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault();
     setIsLoading(true);

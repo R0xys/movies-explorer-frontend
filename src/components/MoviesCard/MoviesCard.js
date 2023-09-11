@@ -5,6 +5,7 @@ import { mainApi } from '../../utils/MainApi';
 function MoviesCard(props) {
   const [isSaved, setIsSaved] = React.useState(false);
   const {country, director, duration, year, description, image, trailerLink, nameRU, nameEN, id } = props.movie;
+
   const handleToggleLike = () => {
     if (!isSaved) {
       mainApi.saveMovie({
@@ -45,6 +46,7 @@ function MoviesCard(props) {
   React.useEffect(() => {
     setIsSaved(props.movie.isLiked)
   }, [props.movie.isLiked])
+  
   return (
     <article className="card">
       <div className="card__flex-wrapper">
