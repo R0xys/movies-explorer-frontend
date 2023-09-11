@@ -6,4 +6,6 @@ Frontend часть для проекта Movies explorer. Сверстано п
 
 ## Дополнительные ссылки
 
-https://r0-0ky.nomoreparties.co/
+Задеплоенный проект: https://r0-0ky.nomoreparties.co/
+
+Pull request: https://github.com/R0xys/movies-explorer-frontend/pull/2
