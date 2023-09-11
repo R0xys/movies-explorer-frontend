@@ -28,7 +28,7 @@ function MoviesCard(props) {
       });
     }
     else if (isSaved) {
-      mainApi.deleteMovie(id)
+      mainApi.deleteMovie(props.movie._id)
         .then((res) => {
           setIsSaved(!isSaved);
         })
@@ -42,15 +42,18 @@ function MoviesCard(props) {
     props.handleRemoveCard(props.movie._id)
   }
 
+  React.useEffect(() => {
+    setIsSaved(props.movie.isLiked)
+  }, [props.movie.isLiked])
   return (
     <article className="card">
       <div className="card__flex-wrapper">
         <h2 className="card__title">{nameRU}</h2>
         <span className="card__time">{`${Math.trunc(duration / 60)}ч ${duration % 60}м`}</span>
       </div>
-      <a href={trailerLink} target='_blank' rel="noreferrer"><img src={props.buttonTypeRemove ? image : `https://api.nomoreparties.co${image.url}`} alt={nameRU} className="card__image" /></a>
-      {!props.buttonTypeRemove && <button type='button' onClick={handleToggleLike} className={`${isSaved ? 'card__button_type_active' : ''} card__button zero-button`}>Сохранить</button>}
-      {props.buttonTypeRemove && <button type='button' onClick={handleRemove} className='card__button_type_remove card__button zero-button'></button>}
+      <a href={trailerLink} target='_blank' rel="noreferrer"><img src={props.isSavedMoviesPage ? image : `https://api.nomoreparties.co${image.url}`} alt={nameRU} className="card__image" /></a>
+      {!props.isSavedMoviesPage && <button type='button' onClick={handleToggleLike} className={`${isSaved ? 'card__button_type_active' : ''} card__button zero-button`}>Сохранить</button>}
+      {props.isSavedMoviesPage && <button type='button' onClick={handleRemove} className='card__button_type_remove card__button zero-button'></button>}
     </article>
   )
 };

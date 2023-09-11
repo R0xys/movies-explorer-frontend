@@ -1,4 +1,5 @@
 import { mainApi } from '../../utils/MainApi';
+import { filterCards } from '../../utils/filterCards';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
@@ -7,23 +8,25 @@ import React from 'react';
 
 function SavedMovies() {
   const [moviesList, setMoviesList] = React.useState([]);
+  const [defaultMoviesList, setDefaultMoviesList] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSwitcherChecked, setIsSwitcherChecked] = React.useState(false);
   const [isMoviesLoaded, setIsMoviesLoaded] = React.useState(false);
   const [isNotFound, setIsNotFound] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState('');
   
+  const handleChangeSearchInput = (evt) => {
+    setInputValue(evt.target.value);
+  }
+
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault();
     setIsLoading(true);
+    setIsNotFound(false);
     mainApi.getMovies()
       .then((res) => {
-        setMoviesList(res);
-        setIsMoviesLoaded(true);
-        if (res.length === 0) {
-          setIsMoviesLoaded(false)
-          setIsNotFound(true);
-        };
-        localStorage.setItem('switcherChecked', isSwitcherChecked);
+        setDefaultMoviesList(res)
+        filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded);
       })
       .catch((err) => {
         console.log(err);
@@ -35,11 +38,32 @@ function SavedMovies() {
   const handleToggleSwitcher = () => {
     setIsSwitcherChecked(!isSwitcherChecked);
   }
-  
+
+  const handleCardsRemoved = () => {
+    setIsMoviesLoaded(false)
+    setIsNotFound(true);
+  }
+
+  React.useEffect(() => {
+    filterCards(isSwitcherChecked, inputValue, setMoviesList, defaultMoviesList, setIsNotFound, setIsMoviesLoaded);
+  }, [isSwitcherChecked])
+
+  React.useEffect(() => {
+    mainApi.getMovies()
+    .then((res) => {
+      setDefaultMoviesList(res);
+      filterCards(isSwitcherChecked, inputValue, setMoviesList, res, setIsNotFound, setIsMoviesLoaded);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => setIsLoading(false))
+  }, []);
+
   return (
     <main className="main">
-      <SearchForm handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
-      {isMoviesLoaded && <MoviesCardList array={moviesList} buttonTypeRemove={true} />}
+      <SearchForm handleChange={handleChangeSearchInput} inputValue={inputValue} handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
+      {isMoviesLoaded && <MoviesCardList setDefaultMoviesList={setDefaultMoviesList} movies={moviesList} isSavedMoviesPage={true} handleCardsRemoved={handleCardsRemoved} />}
       {isNotFound && <p className="no-movies">Ничего не найдено</p>}
       {isLoading && <Preloader />}
     </main>

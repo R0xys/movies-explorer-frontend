@@ -25,7 +25,7 @@
 }
 .card-list__grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0px, 1fr));
   gap: 32px;
   align-content: start;
   min-height: 399px;

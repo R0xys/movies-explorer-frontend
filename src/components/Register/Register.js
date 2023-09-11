@@ -7,7 +7,7 @@ import React from "react";
 
 function Register(props) {
   const [serverError, setServerError] = React.useState('');
-  const {values, handleChange, errors, isValid, setIsValid, resetForm} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid, resetForm, setErrors, handleChangeCustomInput} = useFormAndValidation();
   const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
@@ -28,6 +28,21 @@ function Register(props) {
         console.log(err);
       })
   }
+
+  React.useEffect(() => {
+    if (!/^[a-zа-я\s-]+$/gi.test(values['input-reg-name'])) {
+      setIsValid(false);
+      setErrors({...errors, ['input-reg-name']: 'Поле должно содержать только латиницу, кириллицу, пробел или дефис'});
+    }
+  }, [values['input-reg-name']])
+
+  React.useEffect(() => {
+    setErrors({...errors, ['input-reg-email']: ''});
+    if (!/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu.test(values['input-reg-email']) && values['input-reg-email'] !== undefined) {
+      setIsValid(false);
+      setErrors({...errors, ['input-reg-email']: 'Некорректно введен Emaill'});
+    }
+  }, [values['input-reg-email']])
 
   return (
     <main className="auth">

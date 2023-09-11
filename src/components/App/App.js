@@ -1,4 +1,4 @@
-import { Link, Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -12,13 +12,12 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { mainApi } from '../../utils/MainApi';
-import { useNavigate } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRouteAuth from '../ProtectedRouteAuth/ProtectedRouteAuth';
 
 function App() {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')) || false);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -37,15 +36,17 @@ function App() {
 
   const handleLogIn = () => {
     setIsLoggedIn(true);
+    localStorage.setItem('loggedIn', true);
   }
 
   const checkToken = () => {
     mainApi.checkToken()
       .then((res) => {
-        setIsLoggedIn(true);
+        handleLogIn();
         setCurrentUser(res);
       })
       .catch((err) => {
+        handleLogOut();
         console.log(err);
       })
   }
@@ -82,14 +83,14 @@ function App() {
           <Route path='/profile' element={
             <>
               <Header mainPage={false} handleOpenBurgerMenu={handleOpenBurgerMenu} isLoggedIn={isLoggedIn}/>
-              <ProtectedRoute element={Profile} handleLogOut={handleLogOut} isLoggedIn={isLoggedIn} />
+              <ProtectedRoute element={Profile} setCurrentUser={setCurrentUser} handleLogOut={handleLogOut} isLoggedIn={isLoggedIn} />
             </>
           }/>     
           <Route path='/signup' element={
-            <Register handleLogIn={handleLogIn} />
+            <ProtectedRouteAuth element={Register} isLoggedIn={isLoggedIn} handleLogIn={handleLogIn} />
           }/>
           <Route path='/signin' element={
-            <Login handleLogIn={handleLogIn} />
+            <ProtectedRouteAuth element={Login} isLoggedIn={isLoggedIn} handleLogIn={handleLogIn} />
           }/>      
           <Route path='*' element={
             <NotFound />

@@ -7,7 +7,7 @@ import { mainApi } from '../../utils/MainApi';
 
 function Login(props) {
   const [serverError, setServerError] = React.useState('');
-  const {values, handleChange, errors, isValid, setIsValid, resetForm} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid, resetForm, setErrors, handleChangeCustomInput} = useFormAndValidation();
   const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
@@ -27,6 +27,14 @@ function Login(props) {
         console.log(err);
       })
   }
+
+  React.useEffect(() => {
+    setErrors({...errors, ['input-login-email']: ''});
+    if (!/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu.test(values['input-login-email']) && values['input-login-email'] !== undefined) {
+      setIsValid(false);
+      setErrors({...errors, ['input-login-email']: 'Некорректно введен Emaill'});
+    }
+  }, [values['input-login-email']])
 
   return (
     <section className="auth">
