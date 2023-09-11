@@ -1,0 +1,123 @@
+.about-me {
+  padding: 105px 0 100px 0;
+  background: #202020;
+}
+.about-me__title {
+  margin: 0 0 66px 0;
+}
+.about-me__flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__name {
+  margin: 0 0 18px 0;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+.about-me__caption {
+  color: #FFF;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0 0 26px 0;
+}
+.about-me__text {
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0 50px 0 0;
+  max-width: 600px;
+  min-width: 364px;
+  flex: 1 0 auto;
+}
+.about-me__github {
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 40px 0 0 0;
+  transition: opacity 0.2s;
+}
+.about-me__github:hover {
+  opacity: 0.7;
+}
+.about-me__wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+.about-me__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(-1, 1);
+  border-radius: 10px;
+}
+.about-me__image-container {
+  max-width: 270px;
+  max-height: 327px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+@media screen and (max-width: 900px) {
+  .about-me {
+    padding: 90px 20px;
+  }
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+  .about-me__caption {
+    font-size: 12px;
+    line-height: 18px; 
+    margin: 0 0 20px 0;
+  }
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-me__image-container {
+    max-height: 307px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .about-me__flex-wrapper {
+    flex-direction: column-reverse;
+  }
+  .about-me__text {
+    min-width: 0;
+  }
+  .about-me__image-container {
+    max-width: 400px;
+    min-height: 352px;
+  }
+  .about-me__name {
+    margin: 30px 0 0 0;
+  }
+  .about-me__image {
+    max-height: 352px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .about-me {
+    padding: 70px 4px;
+  }
+  .about-me__name {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+    margin: 38px 0 16px 0;
+  }
+  .about-me__caption {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0;
+  }
+}

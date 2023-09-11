@@ -1,0 +1,47 @@
+@import url(./vendor/fonts.css);
+@import url(./vendor/normalize.css);
+
+.html{
+  scroll-behavior: smooth;
+}
+.page {
+  margin: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: #FFF;
+  background: #202020;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+.landing-title {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.88px;
+  margin: 0;
+  padding: 0 0 24px 0;
+  border-bottom: 1px solid #DADADA;;
+}
+.zero-link {
+  text-decoration: none;
+  color: #FFF;
+}
+.zero-button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #FFF;
+}
+@media screen and (max-width: 500px) {
+  .container {
+    padding: 0 10px;
+  }
+  .landing-title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding: 0 0 28px 0;
+  }
+}
