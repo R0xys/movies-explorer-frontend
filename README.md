@@ -6,4 +6,4 @@ Frontend часть для проекта Movies explorer. Сверстано п
 
 ## Дополнительные ссылки
 
-Скоро...
+https://r0-0ky.nomoreparties.co/

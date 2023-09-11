@@ -63,7 +63,7 @@ function SavedMovies() {
   return (
     <main className="main">
       <SearchForm handleChange={handleChangeSearchInput} inputValue={inputValue} handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
-      {isMoviesLoaded && <MoviesCardList setDefaultMoviesList={setDefaultMoviesList} movies={moviesList} isSavedMoviesPage={true} handleCardsRemoved={handleCardsRemoved} />}
+      {isMoviesLoaded && <MoviesCardList defaultMoviesList={defaultMoviesList} setDefaultMoviesList={setDefaultMoviesList} movies={moviesList} isSavedMoviesPage={true} handleCardsRemoved={handleCardsRemoved} />}
       {isNotFound && <p className="no-movies">Ничего не найдено</p>}
       {isLoading && <Preloader />}
     </main>

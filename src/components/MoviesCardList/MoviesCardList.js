@@ -12,10 +12,13 @@ function MoviesCardList(props) {
     mainApi.deleteMovie(id)
     .then((res) => {
       const arr = adaptiveArray.filter((item) => {
-        return item._id !== res.movie._id
+        return item._id !== res.movie._id;
       })
+      const movies = props.defaultMoviesList.filter((item) => {
+        return item._id !== res.movie._id;
+      })
+      props.setDefaultMoviesList(movies);
       setAdaptiveArray(arr);
-      props.setDefaultMoviesList(arr);
       if (arr.length === 0) {
         props.handleCardsRemoved();
       }
