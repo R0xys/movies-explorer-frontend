@@ -12,8 +12,8 @@ function SearchForm(props) {
       <div className='container'>
         <form onSubmit={handeSubmit} action="#" method="get" name='search-form' className="search-form__form" id='search-form'>
           <div className='search-form__input'>
-            <input onChange={props.handleChange} tabIndex={1} type='text' name='search-form-input' value={props.inputValue} className='search-form__input-line' placeholder='Фильм' />
-            <button tabIndex={2} type='submit' className='search-form__button zero-button'>Поиск</button>
+            <input onChange={props.handleChange} disabled={props.inputsBlocked} tabIndex={1} type='text' name='search-form-input' value={props.inputValue} className='search-form__input-line' placeholder='Фильм' />
+            <button tabIndex={2} type='submit' disabled={props.inputsBlocked} className='search-form__button zero-button'>Поиск</button>
           </div>
           <div className='search-form__flex-wrapper'>
             <FilterCheckbox handleToggleSwitcher={props.handleToggleSwitcher} isSwitcherChecked={props.isSwitcherChecked} />

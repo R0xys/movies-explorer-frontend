@@ -17,6 +17,7 @@ function Movies() {
   const [isSwitcherChecked, setIsSwitcherChecked] = React.useState(JSON.parse(localStorage.getItem('switcherChecked')) || false);
   const [inputValue, setInputValue] = React.useState(localStorage.getItem('inputSearchValue') || '');
   const [isFirstRender, setIsFirstRender] = React.useState(true);
+  const [inputsBlocked, setInputsBlocked] = React.useState(false);
 
   const handleChangeSearchInput = (evt) => {
     setInputValue(evt.target.value);
@@ -26,7 +27,9 @@ function Movies() {
     evt.preventDefault();
     setIsLoading(true);
     setIsNotFound(false);
+
     if (!localStorage.getItem('movies')) {
+      setInputsBlocked(true);
       moviesApi.getData()
       .then((res) => {
         setDefaultMoviesList(res);
@@ -39,7 +42,18 @@ function Movies() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setInputsBlocked(false);
+        setIsLoading(false);
+      })
+    }
+
+    else if (localStorage.getItem('movies')) {
+      setIsFirstRender(false);
+      filterCards(isSwitcherChecked, inputValue, setMoviesList, JSON.parse(localStorage.getItem('movies')), setIsNotFound, setIsMoviesLoaded, isFirstRender);
+      localStorage.setItem('switcherChecked', isSwitcherChecked);
+      localStorage.setItem('inputSearchValue', inputValue);
+      setIsLoading(false)
     }
   }
 
@@ -66,7 +80,7 @@ function Movies() {
 
   return (
     <main className="main">
-      <SearchForm handleChange={handleChangeSearchInput} inputValue={inputValue} handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
+      <SearchForm inputsBlocked={inputsBlocked} handleChange={handleChangeSearchInput} inputValue={inputValue} handleToggleSwitcher={handleToggleSwitcher} handleSubmitSearchForm={handleSubmitSearchForm} isSwitcherChecked={isSwitcherChecked} />
       {isMoviesLoaded && <MoviesCardList movies={moviesList} savedMovies={savedMovies} isSavedMoviesPage={false} />}
       {isNotFound && <p className="no-movies">Ничего не найдено</p>}
       {isLoading && <Preloader />}
