@@ -60,6 +60,9 @@ function Profile(props) {
       setIsValid(false);
       setErrors({...errors, ['edit-name']: 'Придумайте новое имя'});
     }
+  }, [values['edit-name']])
+
+  React.useEffect(() => {
     setErrors({...errors, ['edit-email']: ''});
     if (!/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu.test(values['edit-email']) && values['edit-email'] !== undefined) {
       setIsValid(false);
@@ -69,7 +72,7 @@ function Profile(props) {
       setIsValid(false);
       setErrors({...errors, ['edit-email']: 'Придумайте новый Email'});
     }
-  }, [values['edit-name'], values['edit-email']])
+  }, [values['edit-email']])
 
   return (
     <main className="profile">

@@ -39,7 +39,7 @@ function MoviesCardList(props) {
 
   React.useEffect(() => {
     checkCardsCount();
-  }, []);
+  }, [props.movies]);
 
   return (
     <section className='card-list container'>

@@ -26,7 +26,8 @@ function Movies() {
     evt.preventDefault();
     setIsLoading(true);
     setIsNotFound(false);
-    moviesApi.getData()
+    if (!localStorage.getItem('movies')) {
+      moviesApi.getData()
       .then((res) => {
         setDefaultMoviesList(res);
         setIsFirstRender(false);
@@ -39,6 +40,7 @@ function Movies() {
         console.log(err);
       })
       .finally(() => setIsLoading(false))
+    }
   }
 
   const handleToggleSwitcher = () => {
